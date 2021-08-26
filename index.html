@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보그</title>
+    <style>
+        *{
+            margin:0; padding:0;
+        }
+        #wrap{
+            width:80%;
+            margin:0 auto;
+        }
+        header{
+            text-align: center; 
+            padding:30px 30%;           
+        }
+        header img{
+            width:100%;
+        }        
+        .imgBox{
+            display:flex;
+        }
+        .card{
+            width:33.333%;
+            padding-top: 50%;
+        }
+        footer{
+            background:#777;
+            text-align: center; 
+            padding:30px 30%;           
+        }
+        footer img{
+            width:100%;
+        } 
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <a href="#none">
+                <img src="img/mainLogo.png" alt="">
+            </a>
+        </header>
+        <div id="content">
+            <div class="mCon"></div>
+            <div class="imgBox">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+            </div>
+            <div class="mCon"></div>
+            <div class="imgBox">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+            </div>
+            <div class="mCon"></div>
+            <div class="imgBox">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+            </div>
+        </div>
+        <footer>
+            <a href="#none">
+                <img src="img/footer_logo.png" alt="">
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        var num = ["card1","card2","card3","card4","card5","card6","card7","card8","card9","card10","card11","card12"];
+        var nNum = [];
+        while(num.length){
+            var ranNum = Math.floor(Math.random()*num.length);
+            nNum.push(num.splice(ranNum,1));
+        }
+        
+        var card = document.querySelectorAll(".card");
+        for(var i=0; i<card.length; i++){
+            card[i].style.backgroundImage = `url("img/${nNum[i]}.jpg")`;
+            card[i].style.backgroundSize = "cover";
+            card[i].style.backgroundPosition = "center center";
+        }
+    </script>
+</body>
+</html>
