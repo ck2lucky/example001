@@ -30,10 +30,18 @@
         .logo img{
             width:100%;
         }
+        .slogo{
+            width:100px;
+            padding:6px;
+            display:none;
+        }
+        .slogo img{
+            width:100px; height:26px
+        }
         nav{
             position: -webkit-sticky; /* 사파리 브라우저용 */
             position:sticky;
-            top:0px;
+            top:-1px;
             background: #fff;            
         }
         nav>ul{
@@ -52,6 +60,10 @@
         .gnb a{
             line-height: 40px;
             font-size: 1vw;
+            transition: .3s;
+        }
+        .gnb a:hover{
+            color:#f33;            
         }
         .imgBox{
             display:flex;
@@ -88,7 +100,13 @@
         </header>
         <nav>
             <ul>
-                <li></li>
+                <li>
+                    <div class="slogo">
+                        <a href="#none">
+                            <img src="img/mainLogo.png" alt="">
+                        </a>
+                    </div>
+                </li>
                 <li>
                     <ul class="gnb">
                         <li><a href="#none">FASHION</a></li>
@@ -139,18 +157,25 @@
     
     <script>
         window.addEventListener('wheel',wevent);
+        var nav = document.querySelector("nav");
+        var slogo = document.querySelector(".slogo");
+
+        nav.getBoundingClientRect().top; // nav의 화면상 높이를 구한다.
+        window.pageYOffset + nav.getBoundingClientRect().top; // 스크롤링 된 절대적인 위치를 구한다.
+        
         function wevent(){
-            console.log(1);
-            console.log(nav.offsetTop);
-            console.log(window.pageYOffset);
-            if(nav.offsetTop == window.pageYOffset){
+            
+            if(nav.getBoundingClientRect().top < 140){
                 nav.style.background = "#ffa";
+                slogo.style.display = "block";
             }else{
                 nav.style.background = "#fff";
+                slogo.style.display = "none";
             }
+
         }
 
-        var nav = document.querySelector("nav");
+        
         
         var con = ["conImg1","conImg2","conImg3"];
         var ncon = [];
