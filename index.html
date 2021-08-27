@@ -42,7 +42,8 @@
             position: -webkit-sticky; /* 사파리 브라우저용 */
             position:sticky;
             top:-1px;
-            background: #fff;            
+            background: #fff;   
+            z-index: 100;         
         }
         nav>ul{
             display: flex;
@@ -84,7 +85,23 @@
         }
         footer img{
             width:100%;
-        } 
+        }
+        .mCon, .card{
+            position:relative;
+        }
+        .mCon:after, .card:after{
+            content:"";
+            width:100%;
+            height:100%;
+            display:block;
+            position:absolute;
+            top:0;
+            box-sizing: border-box;
+            transition: .3s;
+        }
+        .mCon:hover:after, .card:hover:after{
+            border:10px #f33 solid;
+        }
     </style>
 </head>
 <body>
