@@ -9,19 +9,57 @@
         *{
             margin:0; padding:0;
         }
+        li{list-style: none;}
+        a{
+            text-decoration: none;
+            display:block; color:inherit;
+        }
         #wrap{
             width:80%;
             margin:0 auto;
         }
-        header{
-            text-align: center; 
-            padding:30px 30%;           
+
+        #head{
+            width: 80%;
+            margin:0 auto;
         }
-        header img{
+        .logo{
+           padding:30px 30%;            
+            text-align: center; 
+        }
+        .logo img{
             width:100%;
-        }        
+        }
+        nav{
+            position: -webkit-sticky; /* 사파리 브라우저용 */
+            position:sticky;
+            top:0px;
+            background: #fff;            
+        }
+        nav>ul{
+            display: flex;
+        }
+        nav>ul>li{
+            width:20%;            
+        }
+        nav>ul>li:nth-child(2){
+            width:60%;            
+        }
+        .gnb{
+            display:flex;
+            justify-content: space-around;
+        }
+        .gnb a{
+            line-height: 40px;
+            font-size: 1vw;
+        }
         .imgBox{
             display:flex;
+            flex-wrap: wrap;
+        }
+        .mCon{
+            width:100%;
+            padding-top: 50%;
         }
         .card{
             width:33.333%;
@@ -38,12 +76,35 @@
     </style>
 </head>
 <body>
-    <div id="wrap">
+    <div class="stickyBox">
         <header>
-            <a href="#none">
-                <img src="img/mainLogo.png" alt="">
-            </a>
+            <div id="head">
+                <div class="logo">
+                    <a href="#none">
+                        <img src="img/mainLogo.png" alt="">
+                    </a>
+                </div>
+            </div>
         </header>
+        <nav>
+            <ul>
+                <li></li>
+                <li>
+                    <ul class="gnb">
+                        <li><a href="#none">FASHION</a></li>
+                        <li><a href="#none">BEAUTY</a></li>
+                        <li><a href="#none">LIVING</a></li>
+                        <li><a href="#none">PEOPLE</a></li>
+                        <li><a href="#none">VIDEO</a></li>
+                        <li><a href="#none">RUNWAY</a></li>
+                        <li><a href="#none">SHOPPING</a></li>
+                        <li><a href="#none">VOGUE WORLD</a></li>
+                    </ul>
+                </li>
+                <li></li>
+            </ul>
+        </nav>
+    <div id="wrap">    
         <div id="content">
             <div class="mCon"></div>
             <div class="imgBox">
@@ -62,6 +123,9 @@
                 <div class="card"></div>
                 <div class="card"></div>
                 <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
             </div>
         </div>
         <footer>
@@ -71,7 +135,23 @@
         </footer>
     </div>
 
+    </div>
+    
     <script>
+        var con = ["conImg1","conImg2","conImg3"];
+        var ncon = [];
+        while(con.length){
+            var ranCon = Math.floor(Math.random()*con.length);
+            ncon.push(con.splice(ranCon,1));
+        }
+        
+        var mCon = document.querySelectorAll(".mCon");
+        for(var i=0; i<mCon.length; i++){
+            mCon[i].style.backgroundImage = `url("img/${ncon[i]}.jpg")`;
+            mCon[i].style.backgroundSize = "cover";
+            mCon[i].style.backgroundPosition = "center center";
+        }
+
         var num = ["card1","card2","card3","card4","card5","card6","card7","card8","card9","card10","card11","card12"];
         var nNum = [];
         while(num.length){
