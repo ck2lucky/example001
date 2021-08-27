@@ -138,6 +138,20 @@
     </div>
     
     <script>
+        window.addEventListener('wheel',wevent);
+        function wevent(){
+            console.log(1);
+            console.log(nav.offsetTop);
+            console.log(window.pageYOffset);
+            if(nav.offsetTop == window.pageYOffset){
+                nav.style.background = "#ffa";
+            }else{
+                nav.style.background = "#fff";
+            }
+        }
+
+        var nav = document.querySelector("nav");
+        
         var con = ["conImg1","conImg2","conImg3"];
         var ncon = [];
         while(con.length){
