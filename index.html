@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <title>보그</title>
     <style>
         *{
@@ -62,6 +65,7 @@
             line-height: 40px;
             font-size: 1vw;
             transition: .3s;
+            font-family: 'Oswald', sans-serif;
         }
         .gnb a:hover{
             color:#f33;            
@@ -88,6 +92,15 @@
         }
         .mCon, .card{
             position:relative;
+            text-align: center;
+            font-size: 5vw;
+            color:#fff;
+        }
+        .mConText{
+            width:100%;
+            position: absolute;
+            top:0px;
+            padding-top:40%;
         }
         .mCon:after, .card:after{
             content:"";
@@ -141,19 +154,25 @@
         </nav>
     <div id="wrap">    
         <div id="content">
-            <div class="mCon"></div>
+            <div class="mCon">
+                <div class="mConText"></div>
+            </div>
             <div class="imgBox">
                 <div class="card"></div>
                 <div class="card"></div>
                 <div class="card"></div>
             </div>
-            <div class="mCon"></div>
+            <div class="mCon">
+                <div class="mConText"></div>
+            </div>
             <div class="imgBox">
                 <div class="card"></div>
                 <div class="card"></div>
                 <div class="card"></div>
             </div>
-            <div class="mCon"></div>
+            <div class="mCon">
+                <div class="mConText"></div>
+            </div>
             <div class="imgBox">
                 <div class="card"></div>
                 <div class="card"></div>
@@ -176,6 +195,7 @@
         window.addEventListener('wheel',wevent);
         var nav = document.querySelector("nav");
         var slogo = document.querySelector(".slogo");
+        var mConText = document.querySelectorAll(".mConText");
 
         nav.getBoundingClientRect().top; // nav의 화면상 높이를 구한다.
         window.pageYOffset + nav.getBoundingClientRect().top; // 스크롤링 된 절대적인 위치를 구한다.
@@ -191,21 +211,21 @@
             }
 
         }
-
         
-        
-        var con = ["conImg1","conImg2","conImg3"];
+        var con = [["conImg1","로꼬의 이야기"],["conImg2","정신없는 사진"],["conImg3","이게비누라니"]];
         var ncon = [];
+        
         while(con.length){
             var ranCon = Math.floor(Math.random()*con.length);
             ncon.push(con.splice(ranCon,1));
         }
-        
+                
         var mCon = document.querySelectorAll(".mCon");
         for(var i=0; i<mCon.length; i++){
-            mCon[i].style.backgroundImage = `url("img/${ncon[i]}.jpg")`;
+            mCon[i].style.backgroundImage = `url("img/${ncon[i][0][0]}.jpg")`;
             mCon[i].style.backgroundSize = "cover";
             mCon[i].style.backgroundPosition = "center center";
+            mConText[i].innerHTML = ncon[i][0][1];
         }
 
         var num = ["card1","card2","card3","card4","card5","card6","card7","card8","card9","card10","card11","card12"];
