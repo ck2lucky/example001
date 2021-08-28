@@ -116,6 +116,32 @@
         .mCon:hover:after, .card:hover:after{
             border:10px #f33 solid;
         }
+
+        @media all and (max-width:1024px){
+            #wrap{
+                width:100%;
+            }
+            nav>ul>li{
+                width:15%;            
+            }
+            nav>ul>li:nth-child(2){
+                width:70%;            
+            }
+            .gnb a{
+                font-size: 1.5vw;
+            }
+        }
+        @media all and (max-width:640px){
+            .card:nth-child(2n+3){
+                display:none;
+            }
+            .card{
+                width:50%;
+            }
+            nav{
+                display:none;
+            }
+        }
     </style>
 </head>
 <body>
