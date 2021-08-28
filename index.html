@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
     <title>보그</title>
     <style>
         *{
@@ -63,9 +63,10 @@
         }
         .gnb a{
             line-height: 40px;
-            font-size: 1vw;
+            font-size: 1.111vw;
             transition: .3s;
-            font-family: 'Oswald', sans-serif;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
         }
         .gnb a:hover{
             color:#f33;            
@@ -202,7 +203,7 @@
         
         function wevent(){
             
-            if(nav.getBoundingClientRect().top < 140){
+            if(nav.getBoundingClientRect().top < 1){
                 nav.style.background = "#ffa";
                 slogo.style.display = "block";
             }else{
