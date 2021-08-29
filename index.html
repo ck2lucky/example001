@@ -249,7 +249,7 @@
         
         while(con.length){
             var ranCon = Math.floor(Math.random()*con.length);
-            //ncon.push(con.splice(ranCon,1)); //ncon이 3차원 배열이 되버림..
+            //ncon.push(con.splice(ranCon,1)); //ncon이 3차원 배열이 되버림..push가 안먹음..ㅠㅠ
             ncon.unshift(con.splice(ranCon,1).pop());
         }
         var mCon = document.querySelectorAll(".mCon");
