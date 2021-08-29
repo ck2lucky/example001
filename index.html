@@ -239,20 +239,25 @@
 
         }
         
-        var con = [["conImg1","로꼬의 이야기"],["conImg2","정신없는 사진"],["conImg3","이게비누라니"]];
+        //var con = [["conImg1","로꼬의 이야기"],["conImg2","정신없는 사진"],["conImg3","이게비누라니"]];
+        var con = [
+                    { imgName : "conImg1", imgText : "로꼬의 이야기" },
+                    { imgName : "conImg2", imgText : "정신없는 사진" },
+                    { imgName : "conImg3", imgText : "이게비누라니" }
+                 ];
         var ncon = [];
         
         while(con.length){
             var ranCon = Math.floor(Math.random()*con.length);
-            ncon.push(con.splice(ranCon,1));
+            //ncon.push(con.splice(ranCon,1)); //ncon이 3차원 배열이 되버림..
+            ncon.unshift(con.splice(ranCon,1).pop());
         }
-                
         var mCon = document.querySelectorAll(".mCon");
         for(var i=0; i<mCon.length; i++){
-            mCon[i].style.backgroundImage = `url("img/${ncon[i][0][0]}.jpg")`;
+            mCon[i].style.backgroundImage = `url("img/${ncon[i].imgName}.jpg")`;
             mCon[i].style.backgroundSize = "cover";
             mCon[i].style.backgroundPosition = "center center";
-            mConText[i].innerHTML = ncon[i][0][1];
+            mConText[i].innerHTML = ncon[i].imgText;
         }
 
         var num = ["card1","card2","card3","card4","card5","card6","card7","card8","card9","card10","card11","card12"];
