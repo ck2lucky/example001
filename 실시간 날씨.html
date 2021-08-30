@@ -69,65 +69,21 @@
         
         도시 코드
         1841066
-
-        
-        api.openweathermap.org/data/2.5/weather?q=mokpo&appid=02a146d88b51a0a88235d8a46514d112
         
         날씨 예보
-        http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={API key}
         http://api.openweathermap.org/data/2.5/forecast?id=1841066&appid=02a146d88b51a0a88235d8a46514d112&units=metric
 
         현재시간 날씨
-        http://api.openweathermap.org/data/2.5/weather?id=2172797&appid={API key}
+        api.openweathermap.org/data/2.5/weather?q=mokpo&appid=02a146d88b51a0a88235d8a46514d112
         http://api.openweathermap.org/data/2.5/weather?id=1841066&appid=02a146d88b51a0a88235d8a46514d112&units=metric
 
         json 코드 이쁘게 변환
         https://jsonbeautifier.org/
-
-        {
-            "dt":1630227600,
-            "main":{
-                "temp":27.03,
-                "feels_like":30.71,
-                "temp_min":25.54,
-                "temp_max":27.03,
-                "pressure":1013,
-                "sea_level":1013,
-                "grnd_level":1012,
-                "humidity":89,
-                "temp_kf":1.49
-            },
-            "weather":[
-                {
-                    "id":804,
-                    "main":"Clouds",
-                    "description":"overcast clouds",
-                    "icon":"04d"
-                }
-            ],
-            "clouds":{
-                "all":95
-            },
-            "wind":{
-                "speed":2.66,
-                "deg":251,
-                "gust":3.38
-            },
-            "visibility":10000,
-            "pop":0.16,
-            "sys":{
-                "pod":"d"
-            },
-            "dt_txt":"2021-08-29 09:00:00"
-        }
-        */
-
-        /* 
+ 
         $.getJSON('URL',function(data){
             //data로 할일
         });
-         */
-        /* 
+
         날씨 아이콘 경로    
             http://openweathermap.org/img/wn/10d@2x.png
         */
@@ -169,9 +125,6 @@
         // };
         // xhr.send();
         
-        //http://openweathermap.org/img/wn/10d@2x.png
-        //https://api.openweathermap.org/data/2.5/weather?q=mokpo&appid=02a146d88b51a0a88235d8a46514d112&units=metric
-        
         var bgImg = [
             { url : "https://cdn.pixabay.com/photo/2019/08/19/07/45/dog-4415649_960_720.jpg", weatherMain : "Rain" },
             { url : "https://cdn.pixabay.com/photo/2021/08/23/08/28/path-6567149_960_720.jpg", weatherMain : "Clouds" },
@@ -198,28 +151,27 @@
             //if(city){city = city}else{city = "mokpo"}
             $.getJSON(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=02a146d88b51a0a88235d8a46514d112&units=metric`,function(data){
             
-            //console.log(data.weather[0].icon);
-            icon.innerHTML = `<img src='http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png' alt=''>`
-            var t = new Date(data.dt*1000);
-            
-            var tHours = t.getHours() > 12 ? "PM " + (t.getHours() - 12) : "AM " + t.getHours();
-            $name.innerHTML = data.name;
-            text.innerHTML = data.weather[0].main;
-            temp.innerHTML = data.main.temp + "&deg;C";
-            time.innerHTML = tHours+"시 "+t.getMinutes()+"분";
-
-            for(var i=0; i<bgImg.length; i++){
-                var mainText = bgImg[i].weatherMain;
+                icon.innerHTML = `<img src='http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png' alt=''>`
+                var t = new Date(data.dt*1000);
                 
-                if(mainText.indexOf(data.weather[0].main)==0){
-                    bg.style.background = `url(${bgImg[i].url})`;
-                    break;
-                }else{
-                    bg.style.background = `url(${bgImg[bgImg.length-1].url})`;
+                var tHours = t.getHours() > 12 ? "PM " + (t.getHours() - 12) : "AM " + t.getHours();
+                $name.innerHTML = data.name;
+                text.innerHTML = data.weather[0].main;
+                temp.innerHTML = data.main.temp + "&deg;C";
+                time.innerHTML = tHours+"시 "+t.getMinutes()+"분";
+
+                for(var i=0; i<bgImg.length; i++){
+                    var mainText = bgImg[i].weatherMain;
+                    
+                    if(mainText.indexOf(data.weather[0].main)==0){
+                        bg.style.background = `url(${bgImg[i].url})`;
+                        break;
+                    }else{
+                        bg.style.background = `url(${bgImg[bgImg.length-1].url})`;
+                    }
                 }
-            }
-            bg.style.backgroundSize = "cover";
-            bg.style.backgroundPosition = "center center";
+                bg.style.backgroundSize = "cover";
+                bg.style.backgroundPosition = "center center";
 
             });
         }    
