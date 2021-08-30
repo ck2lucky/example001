@@ -34,7 +34,7 @@
             height:100px;
         }
         .dataBox{
-            width:60%;
+            width:240px;
             height:250px;
             border-radius: 10px;
             background:rgba(0,0,0,.3);
@@ -179,7 +179,7 @@
         window.addEventListener('keydown', press);
         var citySearch = document.querySelector(".citySearch");
         var icon = document.querySelector(".icon");
-        var name = document.querySelector(".name");
+        var $name = document.querySelector(".name");
         var text = document.querySelector(".text");
         var temp = document.querySelector(".temp");
         var time = document.querySelector(".time");
@@ -197,10 +197,11 @@
             icon.innerHTML = `<img src='http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png' alt=''>`
             var t = new Date(data.dt*1000);
             
-            name.innerHTML = data.name;
+            var tHours = t.getHours() > 12 ? "PM " + (t.getHours() - 12) : "AM " + t.getHours();
+            $name.innerHTML = data.name;
             text.innerHTML = data.weather[0].main;
             temp.innerHTML = data.main.temp + "&deg;C";
-            time.innerHTML = t.getHours()+"시 "+t.getMinutes()+"분";
+            time.innerHTML = tHours+"시 "+t.getMinutes()+"분";
 
             });
         }    
