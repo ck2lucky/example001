@@ -12,9 +12,9 @@
         }
         body{
             height:100vh;
-            background:url("https://cdn.pixabay.com/photo/2021/08/23/08/28/path-6567149_960_720.jpg");
-            background-size: cover;
-            background-position: center center;
+            /* background:url("https://cdn.pixabay.com/photo/2021/08/23/08/28/path-6567149_960_720.jpg"); */
+            /* background-size: cover;
+            background-position: center center; */
         }
         .search{
             text-align: center;
@@ -35,10 +35,9 @@
         }
         .dataBox{
             width:240px;
-            height:250px;
             border-radius: 10px;
             background:rgba(0,0,0,.3);
-            padding:10px;
+            padding:20px;
             box-sizing:border-box;
             color:#fff;
         }
@@ -133,9 +132,6 @@
             http://openweathermap.org/img/wn/10d@2x.png
         */
        
-        var weather = document.querySelector(".weather");
-        var wIcon;
-
         // 날씨 예보
         //  $.getJSON('http://api.openweathermap.org/data/2.5/forecast?id=1841066&appid=02a146d88b51a0a88235d8a46514d112&units=metric',function(data){
         //     var time =new Date(data.list[0].dt*1000);
@@ -175,14 +171,23 @@
         
         //http://openweathermap.org/img/wn/10d@2x.png
         //https://api.openweathermap.org/data/2.5/weather?q=mokpo&appid=02a146d88b51a0a88235d8a46514d112&units=metric
-
+        
+        var bgImg = [
+            { url : "https://cdn.pixabay.com/photo/2019/08/19/07/45/dog-4415649_960_720.jpg", weatherMain : "Rain" },
+            { url : "https://cdn.pixabay.com/photo/2021/08/23/08/28/path-6567149_960_720.jpg", weatherMain : "Clouds" },
+            { url : "https://cdn.pixabay.com/photo/2017/10/01/09/40/grassland-2804703_960_720.jpg", weatherMain : "Clear" },
+            { url : "https://cdn.pixabay.com/photo/2015/12/08/05/58/ice-skates-1082514_960_720.jpg", weatherMain : "Snow" },
+            { url : "https://cdn.pixabay.com/photo/2017/07/30/23/59/garlic-2556022_960_720.jpg", weatherMain : "other" },
+        ];
         window.addEventListener('keydown', press);
+        
         var citySearch = document.querySelector(".citySearch");
         var icon = document.querySelector(".icon");
         var $name = document.querySelector(".name");
         var text = document.querySelector(".text");
         var temp = document.querySelector(".temp");
         var time = document.querySelector(".time");
+        var bg = document.querySelector("body");
 
         function press(e){
            if(e.keyCode == 13) go();
@@ -202,6 +207,19 @@
             text.innerHTML = data.weather[0].main;
             temp.innerHTML = data.main.temp + "&deg;C";
             time.innerHTML = tHours+"시 "+t.getMinutes()+"분";
+
+            for(var i=0; i<bgImg.length; i++){
+                var mainText = bgImg[i].weatherMain;
+                
+                if(mainText.indexOf(data.weather[0].main)==0){
+                    bg.style.background = `url(${bgImg[i].url})`;
+                    break;
+                }else{
+                    bg.style.background = `url(${bgImg[bgImg.length-1].url})`;
+                }
+            }
+            bg.style.backgroundSize = "cover";
+            bg.style.backgroundPosition = "center center";
 
             });
         }    
