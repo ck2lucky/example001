@@ -12,9 +12,6 @@
         }
         body{
             height:100vh;
-            /* background:url("https://cdn.pixabay.com/photo/2021/08/23/08/28/path-6567149_960_720.jpg"); */
-            /* background-size: cover;
-            background-position: center center; */
         }
         .search{
             text-align: center;
@@ -148,7 +145,7 @@
         function go(){
             var city = citySearch.value;
             city = city ? city : "mokpo";
-            //if(city){city = city}else{city = "mokpo"}
+            
             $.getJSON(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=02a146d88b51a0a88235d8a46514d112&units=metric`,function(data){
             
                 icon.innerHTML = `<img src='http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png' alt=''>`
