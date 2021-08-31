@@ -132,7 +132,15 @@
         //     weather.innerHTML += `<img src='http://openweathermap.org/img/wn/${data.weather[0].icon}.png'>`;
         // };
         // xhr.send();
-       
+
+        //브라우저 위도 경도 추출
+        navigator.geolocation.getCurrentPosition(function(position) {
+        
+        var glat = position.coords.latitude, // 위도
+            glon = position.coords.longitude; // 경도
+            console.log(glat,glon);
+        });
+        
         //카카오 맵 시작
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
