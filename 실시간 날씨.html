@@ -16,10 +16,10 @@
         }
         .search{
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
         .weather{
-            padding-top: 100px;
+            padding-top: 60px;
         }
         .search input{
             font-size: 1.2rem;
@@ -38,11 +38,17 @@
             padding:20px;
             box-sizing:border-box;
             color:#fff;
+            margin-bottom: 40px;
         }
         .temp{
             line-height: 60px;
             font-size: 2rem;
             font-weight: bold;
+        }
+        #map{
+            border-radius: 10px;
+            width:300px;
+            height:300px;
         }
     </style>
 </head>
@@ -58,7 +64,7 @@
             <div class="temp"></div>
             <div class="time"></div>
         </div>
-        <div id="map" style="width:300px;height:300px;"></div>
+        <div id="map"></div>
     </div>
     
     <script>
@@ -154,14 +160,12 @@
             // 마커 위치를 클릭한 위치로 옮깁니다
             marker.setPosition(latlng);
             go(latlng.getLat(),latlng.getLng());
-            // var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-            // message += '경도는 ' + latlng.getLng() + ' 입니다';
-            
-            // var resultDiv = document.getElementById('clickLatlng'); 
-            // resultDiv.innerHTML = message;
+
             
         });
+  
         //카카오 맵 -끝
+
 
         var bgImg = [
             { url : "https://cdn.pixabay.com/photo/2019/08/19/07/45/dog-4415649_960_720.jpg", weatherMain : "Rain" },
@@ -184,16 +188,20 @@
            if(e.keyCode == 13) go();
         }
         function go(glat, glng){
+
             var city = citySearch.value;
+            
             city = city ? city : "mokpo";
             citySearch.value = "";
 
             var getUrl;
+
             if(glat && glng){
                 getUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${glat}&lon=${glng}&appid=02a146d88b51a0a88235d8a46514d112&units=metric`
             }else{
                 getUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=02a146d88b51a0a88235d8a46514d112&units=metric`;
             }
+
             $.getJSON(getUrl,function(data){
             
                 icon.innerHTML = `<img src='http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png' alt=''>`
@@ -218,6 +226,7 @@
                 bg.style.backgroundSize = "cover";
                 bg.style.backgroundPosition = "center center";
 
+                
             });
         }    
 
