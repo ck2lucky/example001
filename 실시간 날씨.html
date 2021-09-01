@@ -11,15 +11,18 @@
         *{margin: 0 auto; padding:0;
             text-align: center;
         }
+        li{
+            list-style: none;
+        }
         body{
             height:100vh;
         }
         .search{
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
         .weather{
-            padding-top: 60px;
+            padding-top: 30px;
         }
         .search input{
             font-size: 1.2rem;
@@ -38,7 +41,7 @@
             padding:20px;
             box-sizing:border-box;
             color:#fff;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
         .temp{
             line-height: 60px;
@@ -49,6 +52,19 @@
             border-radius: 10px;
             width:300px;
             height:300px;
+        }
+        .forecast ul{
+            width:350px;
+            display:flex;
+            margin-bottom: 20px;
+        }
+        .forecast li{
+            width:23%;
+            padding:1px;
+            background:rgba(0,0,0,.3);
+            border-radius: 3px;
+            color:#fff;
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -64,13 +80,43 @@
             <div class="temp"></div>
             <div class="time"></div>
         </div>
+        <div class="forecast">
+            <ul>
+                <li>
+                    <div class="ficon"></div>
+                    <div class="ftext"></div>
+                    <div class="ftemp"></div>
+                    <div class="ftime"></div>
+                </li>
+                <li>
+                    <div class="ficon"></div>
+                    <div class="ftext"></div>
+                    <div class="ftemp"></div>
+                    <div class="ftime"></div>
+                </li>
+                <li>
+                    <div class="ficon"></div>
+                    <div class="ftext"></div>
+                    <div class="ftemp"></div>
+                    <div class="ftime"></div>
+                </li>
+                <li>
+                    <div class="ficon"></div>
+                    <div class="ftext"></div>
+                    <div class="ftemp"></div>
+                    <div class="ftime"></div>
+                </li>
+            </ul>
+        </div>   
         <div id="map"></div>
     </div>
     
     <script>
         /* 
-        날씨 키값(api key)
+        날씨 키값(api key) 현재 날씨 키
         02a146d88b51a0a88235d8a46514d112
+        16days
+        2c1035dd6e14fd82192a261ea246db86
         
         도시 코드
         1841066
@@ -85,6 +131,11 @@
         //위도 경도 현재시간 날씨 34.78865, 126.38473
         api.openweathermap.org/data/2.5/weather?lat=34.78865&lon=126.38473&appid=02a146d88b51a0a88235d8a46514d112&units=metric
         
+        //4일간 예보
+        https://api.openweathermap.org/data/2.5/forecast?q=mokpo&appid=02a146d88b51a0a88235d8a46514d112&units=metric
+        api.openweathermap.org/data/2.5/forecast?q=mokpo&cnt=4&appid=2c1035dd6e14fd82192a261ea246db86&units=metric
+        
+
         json 코드 이쁘게 변환
         https://jsonbeautifier.org/
  
@@ -134,12 +185,12 @@
         // xhr.send();
 
         //브라우저 위도 경도 추출
-        navigator.geolocation.getCurrentPosition(function(position) {
+        // navigator.geolocation.getCurrentPosition(function(position) {
         
-        var glat = position.coords.latitude, // 위도
-            glon = position.coords.longitude; // 경도
-            console.log(glat,glon);
-        });
+        // var glat = position.coords.latitude, // 위도
+        //     glon = position.coords.longitude; // 경도
+        //     console.log(glat,glon);
+        // });
         
         //카카오 맵 시작
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -192,6 +243,11 @@
         var time = document.querySelector(".time");
         var bg = document.querySelector("body");
 
+        var ficon = document.querySelectorAll(".ficon");
+        var ftext = document.querySelectorAll(".ftext");
+        var ftemp = document.querySelectorAll(".ftemp");
+        var ftime = document.querySelectorAll(".ftime");
+        
         function press(e){
            if(e.keyCode == 13) go();
         }
@@ -202,7 +258,7 @@
             city = city ? city : "mokpo";
             citySearch.value = "";
 
-            var getUrl;
+            var getUrl, getForecastUrl;
 
             if(glat && glng){
                 getUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${glat}&lon=${glng}&appid=02a146d88b51a0a88235d8a46514d112&units=metric`
@@ -236,6 +292,27 @@
 
                 
             });
+
+            /* 예보하기 */
+            if(glat && glng){
+                getForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${glat}&lon=${glng}&appid=2c1035dd6e14fd82192a261ea246db86&units=metric`
+            }else{
+                getForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=2c1035dd6e14fd82192a261ea246db86&units=metric`;
+            }
+            $.getJSON(getForecastUrl,function(fdata){
+            
+            for(var j = 0; j < 4; j++){
+                var ft = [];
+                ft[j] = new Date(fdata.list[(j+1)*8].dt*1000);
+                      
+                ficon[j].innerHTML = `<img src='http://openweathermap.org/img/wn/${fdata.list[(j+1)*8].weather[0].icon}.png' alt=''>`
+                ftext[j].innerHTML = fdata.list[(j+1)*8].weather[0].main;
+                ftemp[j].innerHTML = fdata.list[(j+1)*8].main.temp + "&deg;C";
+                ftime[j].innerHTML = ft[j].getDate()+"일";
+            }
+            
+            
+        });
         }    
 
         
