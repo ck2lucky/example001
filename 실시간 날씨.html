@@ -19,17 +19,18 @@
         }
         .search{
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .weather{
-            padding-top: 50px;
+            padding-top: 30px;
         }
         .search input{
             font-size: 1.2rem;
             background:rgba(0,0,0,.3);
-            border-radius: 5%;
+            border-radius: 3px;
             border:none;
             color:#fff;
+            width:240px;
         }
         .icon{
             height:100px;
@@ -38,25 +39,25 @@
             width:240px;
             border-radius: 10px;
             background:rgba(0,0,0,.3);
-            padding:20px;
+            padding:10px;
             box-sizing:border-box;
             color:#fff;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .temp{
-            line-height: 60px;
-            font-size: 2rem;
+            line-height: 50px;
+            font-size: 1.8rem;
             font-weight: bold;
         }
         #map{
             border-radius: 10px;
-            width:300px;
-            height:300px;
+            width:345px;
+            height:260px;
         }
         .forecast ul{
             width:350px;
             display:flex;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .forecast li{
             width:23%;
@@ -65,6 +66,9 @@
             border-radius: 3px;
             color:#fff;
             font-size: 0.8rem;
+        }
+        .forecast.hours li{
+            background:rgba(150,50,50,.3);
         }
     </style>
 </head>
@@ -80,6 +84,34 @@
             <div class="temp"></div>
             <div class="time"></div>
         </div>
+        <div class="forecast hours">
+            <ul>
+                <li>
+                    <div class="ficon"></div>
+                    <div class="ftext"></div>
+                    <div class="ftemp"></div>
+                    <div class="ftime"></div>
+                </li>
+                <li>
+                    <div class="ficon"></div>
+                    <div class="ftext"></div>
+                    <div class="ftemp"></div>
+                    <div class="ftime"></div>
+                </li>
+                <li>
+                    <div class="ficon"></div>
+                    <div class="ftext"></div>
+                    <div class="ftemp"></div>
+                    <div class="ftime"></div>
+                </li>
+                <li>
+                    <div class="ficon"></div>
+                    <div class="ftext"></div>
+                    <div class="ftemp"></div>
+                    <div class="ftime"></div>
+                </li>
+            </ul>
+        </div> 
         <div class="forecast">
             <ul>
                 <li>
@@ -222,7 +254,6 @@
 
             
         });
-  
         //카카오 맵 -끝
 
 
@@ -301,14 +332,23 @@
             }
             $.getJSON(getForecastUrl,function(fdata){
             
-            for(var j = 0; j < 4; j++){
+                for(var j = 0; j < 4; j++){
+                var fth = [];
                 var ft = [];
+                fth[j] = new Date(fdata.list[(j+1)].dt*1000);
                 ft[j] = new Date(fdata.list[(j+1)*8].dt*1000);
-                      
-                ficon[j].innerHTML = `<img src='http://openweathermap.org/img/wn/${fdata.list[(j+1)*8].weather[0].icon}.png' alt=''>`
-                ftext[j].innerHTML = fdata.list[(j+1)*8].weather[0].main;
-                ftemp[j].innerHTML = fdata.list[(j+1)*8].main.temp + "&deg;C";
-                ftime[j].innerHTML = ft[j].getDate()+"일";
+                
+                //시간예보
+                ficon[j].innerHTML = `<img src='http://openweathermap.org/img/wn/${fdata.list[(j+1)].weather[0].icon}.png' alt=''>`
+                ftext[j].innerHTML = fdata.list[(j+1)].weather[0].main;
+                ftemp[j].innerHTML = fdata.list[(j+1)].main.temp + "&deg;C";
+                ftime[j].innerHTML = fth[j].getHours()+"시";
+                
+                //날짜예보
+                ficon[j+4].innerHTML = `<img src='http://openweathermap.org/img/wn/${fdata.list[(j+1)*8].weather[0].icon}.png' alt=''>`
+                ftext[j+4].innerHTML = fdata.list[(j+1)*8].weather[0].main;
+                ftemp[j+4].innerHTML = fdata.list[(j+1)*8].main.temp + "&deg;C";
+                ftime[j+4].innerHTML = ft[j].getDate()+"일";
             }
             
             
